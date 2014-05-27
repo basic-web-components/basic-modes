@@ -34,14 +34,15 @@ basic-framed-content {
     <option value="1">Second</option>
     <option value="2">Third</option>
   </select>
-  <!-- <button disabled="{{nextEnabled}}">Next</button> -->
-  Count: {{count}}
-  <basic-modes selected="{{choice}}" count="{{count}}">
+  {{nextEnabled}}
+  <button disabled="{{ !previousEnabled }}">Previous</button>
+  <button disabled="{{ !nextEnabled }}">Next</button>
+  <basic-modes selected="{{choice}}" canGoNext="{{nextEnabled}}" canGoPrevious="{{previousEnabled}}">
     <div>First mode</div>
     <div>Second mode</div>
     <div>Third mode</div>
+  </basic-modes>
 </template>
-</basic-modes>
 </basic-framed-content>
 </body>
 
