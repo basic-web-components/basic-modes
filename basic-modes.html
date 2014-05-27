@@ -30,6 +30,14 @@ Polymer( "basic-modes", {
     }
   },
 
+  get canGoNext() {
+    return ( this.selectedIndex + 1 < this.children.length );
+  },
+
+  get canGoPrevious() {
+    return ( this.selectedIndex > 0 );
+  },
+
   /**
    * Move to the next child in the sequence of children.
    * If the last child is already the one being shown, this has no effect.
@@ -37,9 +45,8 @@ Polymer( "basic-modes", {
    * @method next
    */
   next: function() {
-    var index = this.selectedIndex + 1;
-    if ( index < this.children.length ) {
-      this.selected = index;
+    if ( this.canGoNext ) {
+      this.selected = this.selectedIndex + 1;
     }
   },
 
@@ -50,9 +57,8 @@ Polymer( "basic-modes", {
    * @method previous
    */
   previous: function() {
-    var index = this.selectedIndex - 1;
-    if ( index >= 0 ) {
-      this.selected = index;
+    if ( this.canGoPrevious ) {
+      this.selected = this.selectedIndex - 1;
     }
   },
 
