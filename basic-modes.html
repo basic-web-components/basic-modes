@@ -1,5 +1,7 @@
 <!--
 Shows a single child element at a time.
+
+@element basic-modes
 -->
 
 <link rel="import" href="../polymer-selector/polymer-selector.html">
@@ -10,13 +12,49 @@ Shows a single child element at a time.
   :host {
     display: block;
   }
+
+  ::content :not(.polymer-selected) {
+    display: none;
+  }
   </style>
-  {{value}}
   <shadow></shadow>
 </template>
 
 <script>
 Polymer( "basic-modes", {
+
+  attached: function() {
+    // By default, the first mode is selected.
+    if ( !this.selected ) {
+      this.selected = 0;
+    }
+  },
+
+  /**
+   * Move to the next child in the sequence of children.
+   * If the last child is already the one being shown, this has no effect.
+   *
+   * @method next
+   */
+  next: function() {
+    var index = this.selectedIndex + 1;
+    if ( index < this.children.length ) {
+      this.selected = index;
+    }
+  },
+
+  /**
+   * Move to the previous child in the sequence of children.
+   * If the first child is already the one being shown, this has no effect.
+   *
+   * @method previous
+   */
+  previous: function() {
+    var index = this.selectedIndex - 1;
+    if ( index >= 0 ) {
+      this.selected = index;
+    }
+  },
 
   ready: function() {
     this.super();
