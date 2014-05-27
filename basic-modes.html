@@ -6,7 +6,7 @@ Shows a single child element at a time.
 
 <link rel="import" href="../polymer-selector/polymer-selector.html">
 
-<polymer-element name="basic-modes" extends="polymer-selector">
+<polymer-element name="basic-modes" extends="polymer-selector" constructor="basicModes">
 <template>
   <style>
   :host {
@@ -30,17 +30,27 @@ Polymer( "basic-modes", {
     }
   },
 
+  /**
+   * True if it there is at least one child after the active one.
+   *
+   * @property canGoNext
+   */
   get canGoNext() {
-    return ( this.selectedIndex + 1 < this.children.length );
+    return ( this.children && this.selectedIndex + 1 < this.children.length );
   },
 
+  /**
+   * True if it there is at least one child after the active one.
+   *
+   * @property canGoPrevious
+   */
   get canGoPrevious() {
-    return ( this.selectedIndex > 0 );
+    return ( this.children && this.selectedIndex > 0 );
   },
 
   /**
    * Move to the next child in the sequence of children.
-   * If the last child is already the one being shown, this has no effect.
+   * If the last child is already the active one being shown, this has no effect.
    *
    * @method next
    */
@@ -48,11 +58,22 @@ Polymer( "basic-modes", {
     if ( this.canGoNext ) {
       this.selected = this.selectedIndex + 1;
     }
+
+    var oldCount = this._count;
+    this._count++;
+    var notifier = Object.getNotifier( this );
+    notifier.notify({
+      type: "update",
+      name: "count",
+      oldValue: oldCount
+    });
+    // this.setAttribute( "count", this._count );
+    console.log( this.count );
   },
 
   /**
    * Move to the previous child in the sequence of children.
-   * If the first child is already the one being shown, this has no effect.
+   * If the first child is already the active one being shown, this has no effect.
    *
    * @method previous
    */
@@ -65,7 +86,18 @@ Polymer( "basic-modes", {
   ready: function() {
     this.super();
     this.notap = true;
-  }
+
+    if ( !Object.getOwnPropertyDescriptor( basicModes.prototype, "count" ) ) {
+      Object.defineProperty( basicModes.prototype, "count", {
+        get: function() {
+          return this._count;
+        }
+      });      
+    }
+
+  },
+
+  _count: 0
 
 });
 </script>
