@@ -1,0 +1,29 @@
+<!--
+Shows a single child element at a time.
+-->
+
+<link rel="import" href="../polymer-selector/polymer-selector.html">
+
+<polymer-element name="basic-modes" extends="polymer-selector">
+<template>
+  <style>
+  :host {
+    display: block;
+  }
+  </style>
+  {{value}}
+  <shadow></shadow>
+</template>
+
+<script>
+Polymer( "basic-modes", {
+
+  ready: function() {
+    this.super();
+    this.notap = true;
+  }
+
+});
+</script>
+
+</polymer-element>
