@@ -17,6 +17,9 @@ cases like multi-selection being turned on.
     display: block;
   }
 
+  polyfill-next-selector {
+    content: ':not(.polymer-selected)';
+  }
   ::content :not(.polymer-selected) {
     display: none;
   }
@@ -64,10 +67,13 @@ Polymer( "basic-modes", {
   _flattenChildren: function( nodes ) {
     var expanded = Array.prototype.map.call( nodes, function( node ) {
       if ( node instanceof HTMLContentElement ) {
+        // content element; use its distributed nodes instead.
         return this._flattenChildren( node.getDistributedNodes() );
       } else if ( node instanceof HTMLElement ) {
+        // Plain element; use as is.
         return [ node ];
       } else {
+        // Not an element; skip.
         return [];
       }
     }.bind( this ));
