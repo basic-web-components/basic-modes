@@ -40,7 +40,7 @@ Polymer( "basic-modes", {
   // See http://stackoverflow.com/questions/23900203/easiest-way-for-a-polymer-element-to-declare-a-bindable-property-with-a-getter-s.
   canGoNext: false,
   get _canGoNext() {
-    return ( this.children && this.selectedIndex + 1 < this.children.length );
+    return ( this.selectedIndex + 1 < this.distributedChildren.length );
   },
 
   /**
@@ -51,7 +51,7 @@ Polymer( "basic-modes", {
   // TODO: See note at canGoNext.
   canGoPrevious: false,
   get _canGoPrevious() {
-    return ( this.children && this.selectedIndex > 0 );
+    return ( this.selectedIndex > 0 );
   },
 
   /*
@@ -61,6 +61,15 @@ Polymer( "basic-modes", {
    */
   get distributedChildren() {
     return this._flattenChildren( this.children );
+  },
+
+  get items() {
+    // Find and invoke the base class' items getter.
+    // var itemsGetter = Object.getOwnPropertyDescriptor( this.__proto__.__proto__, "items" ).get;
+    // var result = itemsGetter.call( this );
+    // console.log( "here" );
+    // return result;
+    return this.distributedChildren;
   },
 
   /**
