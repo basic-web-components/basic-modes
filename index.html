@@ -33,14 +33,15 @@ basic-framed-content {
     <option value="0">First</option>
     <option value="1">Second</option>
     <option value="2">Third</option>
+    <option value="3">Fourth</option>
   </select>
-  {{nextEnabled}}
-  <button disabled="{{ !previousEnabled }}">Previous</button>
-  <button disabled="{{ !nextEnabled }}">Next</button>
-  <basic-modes selected="{{choice}}" canGoNext="{{nextEnabled}}" canGoPrevious="{{previousEnabled}}">
+  <button onclick="document.querySelector('#modes').previous()" disabled?="{{!previousEnabled}}">Previous</button>
+  <button onclick="document.querySelector('#modes').next()" disabled?="{{!nextEnabled}}">Next</button>
+  <basic-modes id="modes" selected="{{choice}}" canGoNext="{{nextEnabled}}" canGoPrevious="{{previousEnabled}}">
     <div>First mode</div>
     <div>Second mode</div>
     <div>Third mode</div>
+    <div>Fourth mode</div>
   </basic-modes>
 </template>
 </basic-framed-content>

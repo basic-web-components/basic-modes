@@ -35,16 +35,20 @@ Polymer( "basic-modes", {
    *
    * @property canGoNext
    */
+  // TODO: This property and its companion canGoPrevious should be read-only,
+  // but it's not clear how to create a bindable, read-only property.
+  // See http://stackoverflow.com/questions/23900203/easiest-way-for-a-polymer-element-to-declare-a-bindable-property-with-a-getter-s.
   canGoNext: false,
   get _canGoNext() {
     return ( this.children && this.selectedIndex + 1 < this.children.length );
   },
 
   /**
-   * True if it there is at least one child after the active one.
+   * True if it there is at least one child after the active one. Read-only.
    *
    * @property canGoPrevious
    */
+  // TODO: See note at canGoNext.
   canGoPrevious: false,
   get _canGoPrevious() {
     return ( this.children && this.selectedIndex > 0 );
@@ -65,7 +69,6 @@ Polymer( "basic-modes", {
   selectedIndexChanged: function() {
     this.super();
     this.canGoNext = this._canGoNext;
-    console.log( this.selectedIndex + " " + this.canGoNext );
     this.canGoPrevious = this._canGoPrevious;
   },
 
