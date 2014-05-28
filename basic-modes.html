@@ -54,6 +54,15 @@ Polymer( "basic-modes", {
     return ( this.children && this.selectedIndex > 0 );
   },
 
+  /*
+   * Returns the collection of children, where any children that are content
+   * nodes are replaced with the elements distributed (perhaps more than once)
+   * to that content element.
+   */
+  get distributedChildren() {
+    return this._flattenChildren( this.children );
+  },
+
   /**
    * Move to the next child in the sequence of children.
    * If the last child is already the active one being shown, this has no effect.
@@ -87,6 +96,25 @@ Polymer( "basic-modes", {
   ready: function() {
     this.super();
     this.notap = true;
+  },
+
+  /*
+   * Given a node, return the children of that element. If any of the children
+   * are content elements, instead of returning the content element, return the
+   * nodes distributed to it. (Apply this rule recursively.)
+   */
+  _flattenChildren: function( nodes ) {
+    var expanded = Array.prototype.map.call( nodes, function( node ) {
+      if ( node instanceof HTMLContentElement ) {
+        return this._flattenChildren( node.getDistributedNodes() );
+      } else if ( node instanceof HTMLElement ) {
+        return [ node ];
+      } else {
+        return [];
+      }
+    }.bind( this ));
+    var flattened = Array.prototype.concat.apply( [], expanded );
+    return flattened;
   }
 
 });
