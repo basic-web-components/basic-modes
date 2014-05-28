@@ -5,7 +5,7 @@
   "license": "MIT",
   "main": "basic-modes.html",
   "dependencies": {
-    "basic-element": "basic-web-components/basic-element#master"
+    "polymer-selector": "Polymer/polymer-selector#master"
   },
   "dev-dependencies": {
     "basic-framed-content": "basic-web-components/basic-framed-content#master"
