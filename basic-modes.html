@@ -3,10 +3,14 @@ Shows a single child element at a time.
 
 @element basic-modes
 -->
+<!--
+TODO: Contains a polymer-selector rather than inherit from it? This avoids
+cases like multi-selection being turned on.
+-->
 
 <link rel="import" href="../polymer-selector/polymer-selector.html">
 
-<polymer-element name="basic-modes" extends="polymer-selector" attributes="canGoNext canGoPrevious">
+<polymer-element name="basic-modes" extends="polymer-selector">
 <template>
   <style>
   :host {
@@ -30,76 +34,21 @@ Polymer( "basic-modes", {
     }
   },
 
-  /**
-   * True if it there is at least one child after the active one.
-   *
-   * @property canGoNext
-   */
-  // TODO: This property and its companion canGoPrevious should be read-only,
-  // but it's not clear how to create a bindable, read-only property.
-  // See http://stackoverflow.com/questions/23900203/easiest-way-for-a-polymer-element-to-declare-a-bindable-property-with-a-getter-s.
-  canGoNext: false,
-  get _canGoNext() {
-    return ( this.selectedIndex + 1 < this.distributedChildren.length );
-  },
-
-  /**
-   * True if it there is at least one child after the active one. Read-only.
-   *
-   * @property canGoPrevious
-   */
-  // TODO: See note at canGoNext.
-  canGoPrevious: false,
-  get _canGoPrevious() {
-    return ( this.selectedIndex > 0 );
-  },
-
   /*
    * Returns the collection of children, where any children that are content
    * nodes are replaced with the elements distributed (perhaps more than once)
    * to that content element.
+   *
+   * TODO: Move this to basic-element?
    */
   get distributedChildren() {
     return this._flattenChildren( this.children );
   },
 
+  // Override the basic items property so we can handle (re)distributed content.
+  // TODO: Handle selectors, etc., like base class' items can.
   get items() {
-    // Find and invoke the base class' items getter.
-    // var itemsGetter = Object.getOwnPropertyDescriptor( this.__proto__.__proto__, "items" ).get;
-    // var result = itemsGetter.call( this );
-    // console.log( "here" );
-    // return result;
     return this.distributedChildren;
-  },
-
-  /**
-   * Move to the next child in the sequence of children.
-   * If the last child is already the active one being shown, this has no effect.
-   *
-   * @method next
-   */
-  next: function() {
-    if ( this.canGoNext ) {
-      this.selected = this.selectedIndex + 1;
-    }
-  },
-
-  selectedIndexChanged: function() {
-    this.super();
-    this.canGoNext = this._canGoNext;
-    this.canGoPrevious = this._canGoPrevious;
-  },
-
-  /**
-   * Move to the previous child in the sequence of children.
-   * If the first child is already the active one being shown, this has no effect.
-   *
-   * @method previous
-   */
-  previous: function() {
-    if ( this.canGoPrevious ) {
-      this.selected = this.selectedIndex - 1;
-    }
   },
 
   ready: function() {
