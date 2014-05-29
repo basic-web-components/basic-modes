@@ -22,6 +22,16 @@ body {
 basic-framed-content {
   padding: 2em;
 }
+
+basic-modes {
+  background: #ccc;
+  height: 300px;
+  width: 400px;
+}
+
+img {
+  display: block;
+}
 </style>
 
 </head>
@@ -35,13 +45,21 @@ basic-framed-content {
     <option value="2">Third</option>
     <option value="3">Fourth</option>
   </select>
-  <basic-modes id="modes" selected="{{choice}}" canGoNext="{{nextEnabled}}" canGoPrevious="{{previousEnabled}}">
-    <div>First mode</div>
-    <div>Second mode</div>
-    <div>Third mode</div>
-    <div>Fourth mode</div>
+  <basic-modes selected="{{choice}}" canGoNext="{{nextEnabled}}" canGoPrevious="{{previousEnabled}}">
+    <img src="http://lorempixel.com/300/200/nature/1">
+    <img src="http://lorempixel.com/400/300/nature/2">
+    <img src="http://lorempixel.com/400/300/nature/3">
+    <img src="http://lorempixel.com/400/300/nature/4">
+    <div>Hello</div>
   </basic-modes>
-</template>
+<!--   <basic-modes selected="{{choice}}" canGoNext="{{nextEnabled}}" canGoPrevious="{{previousEnabled}}" autoSize="false">
+    <img src="http://lorempixel.com/300/200/nature/1">
+    <img src="http://lorempixel.com/400/300/nature/2">
+    <img src="http://lorempixel.com/400/300/nature/3">
+    <img src="http://lorempixel.com/400/300/nature/4">
+    <div>Hello</div>
+  </basic-modes>
+ --></template>
 </basic-framed-content>
 </body>
 
