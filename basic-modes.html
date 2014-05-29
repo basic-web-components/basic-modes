@@ -8,9 +8,9 @@ TODO: Contains a polymer-selector rather than inherit from it? This avoids
 cases like multi-selection being turned on.
 -->
 
-<link rel="import" href="../polymer-selector/polymer-selector.html">
+<link rel="import" href="../core-selector/core-selector.html">
 
-<polymer-element name="basic-modes" extends="polymer-selector">
+<polymer-element name="basic-modes" extends="core-selector">
 <template>
   <style>
   :host {
@@ -18,9 +18,9 @@ cases like multi-selection being turned on.
   }
 
   polyfill-next-selector {
-    content: ':not(.polymer-selected)';
+    content: ':not(.core-selected)';
   }
-  ::content :not(.polymer-selected) {
+  ::content :not(.core-selected) {
     display: none;
   }
   </style>
