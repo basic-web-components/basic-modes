@@ -45,6 +45,9 @@ Polymer( "basic-modes", {
    * to that content element.
    *
    * TODO: Move this to basic-element?
+   * TODO: This walks the whole content tree every time the list is requested.
+   * It'd be nice to cache the answer and invalidate it only when content
+   * actually changes.
    */
   get distributedChildren() {
     return this._flattenChildren( this.children );
