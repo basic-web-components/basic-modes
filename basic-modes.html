@@ -4,8 +4,8 @@ Shows a single child element at a time.
 @element basic-modes
 -->
 <!--
-TODO: Contains a polymer-selector rather than inherit from it? This avoids
-cases like multi-selection being turned on.
+TODO: Contain a polymer-selector rather than inherit from it? This would help
+avoid cases like multi-selection being turned on.
 -->
 
 <link rel="import" href="../core-selector/core-selector.html">
@@ -58,7 +58,7 @@ Polymer( "basic-modes", {
 
   ready: function() {
     this.super();
-    this.notap = true;
+    this.notap = true; /* Disable core-selector's click-to-select feature */
   },
 
   /*
