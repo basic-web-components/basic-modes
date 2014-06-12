@@ -22,7 +22,7 @@ elements which use basic-modes, such as basic-sequence-navigator or basic-
 slideshow. The subclass basic-sequence derives from basic-elements, adding
 transitional effects.
 
-Like other Basic Web Components, basic-modes element can handle reprojected
+Like other Basic Web Components, basic-modes element can handle distributed
 content. That is, if you place a content element inside a basic-modes, the
 latter will consider the elements distributed to the content element (rather
 than the content element itself) as the set of modes.
@@ -35,10 +35,9 @@ TODO: Contain a core-selector rather than inherit from it? This would help
 avoid cases like multi-selection being turned on.
 -->
 
-<link rel="import" href="../core-selector/core-selector.html">
-<link rel="import" href="../basic-element/basic-element.html">
+<link rel="import" href="../basic-selector/basic-selector.html">
 
-<polymer-element name="basic-modes" extends="core-selector">
+<polymer-element name="basic-modes" extends="basic-selector">
 <template>
   <style>
   :host {
@@ -58,7 +57,7 @@ avoid cases like multi-selection being turned on.
 </template>
 
 <script>
-Polymer( "basic-modes", Platform.mixin( BasicWebComponents, {
+Polymer( "basic-modes", {
 
   attached: function() {
     // By default, the first mode is selected.
@@ -67,18 +66,12 @@ Polymer( "basic-modes", Platform.mixin( BasicWebComponents, {
     }
   },
 
-  // Override the basic items property so we can handle (re)distributed content.
-  // TODO: Handle selectors, etc., like base class' items can.
-  get items() {
-    return this.flattenChildren;
-  },
-
   ready: function() {
     this.super();
     this.notap = true; /* Disable core-selector's click-to-select feature */
   }
 
-}));
+});
 </script>
 
 </polymer-element>
